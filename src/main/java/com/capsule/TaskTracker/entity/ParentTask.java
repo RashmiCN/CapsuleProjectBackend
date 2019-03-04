@@ -1,0 +1,76 @@
+package com.capsule.TaskTracker.entity;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@Entity
+@Table(name="parent_task")
+public class ParentTask {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonIgnore
+	private int parentId;
+	
+	@Column(name="parent_task")
+	@JsonProperty("parentTaskName")
+	private String parentTask;
+	
+//	@OneToMany(mappedBy="parentTask",
+//			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+//						 CascadeType.DETACH, CascadeType.REFRESH})
+//	private List<Task> task;
+
+	public int getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getParentTask() {
+		return parentTask;
+	}
+
+	public void setParentTask(String parentTask) {
+		this.parentTask = parentTask;
+	}
+
+//	public List<Task> getTask() {
+//		return task;
+//	}
+//
+//	public void setTask(List<Task> task) {
+//		this.task = task;
+//	}
+
+	public ParentTask(String parentTask) {
+		super();
+		this.parentTask = parentTask;
+	}
+    
+	
+	public ParentTask() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "ParentTask [parentId=" + parentId + ", parentTask=" + parentTask +"]";
+	}
+	
+
+}
