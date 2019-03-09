@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.capsule.TaskTracker.service.TaskTrackerService;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.capsule.TaskTracker.Exception.TaskTrackerException;
+import com.capsule.TaskTracker.entity.ParentTask;
 import com.capsule.TaskTracker.entity.Task;
 
 
@@ -63,6 +64,29 @@ public class TaskControllerRest {
 			return ResponseEntity.status(HttpStatus.OK).header("message", "not created").build();
 		}
 	}
+	
+	
+	// Create Tasks
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value="/addParentTask")
+	@Consumes({"application/json"})
+	@ResponseBody
+	public ResponseEntity<String> createParentTask(@RequestBody ParentTask parentTask) {
+		System.out.println("task passed" + parentTask);
+		boolean isCreated = false;
+		
+		isCreated = taskService.createParentTask(parentTask);
+		
+		if(isCreated){
+			return new ResponseEntity<String>(HttpStatus.CREATED);
+		} else {
+//			return new ResponseEntity<Product>(HttpStatus.OK);
+			
+			return ResponseEntity.status(HttpStatus.OK).header("message", "not created").build();
+		}
+	}
+	
+	
 	
    // Edit Non Flipped Task
 	@CrossOrigin(origins = "http://localhost:4200")

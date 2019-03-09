@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.capsule.TaskTracker.entity.ParentTask;
 import com.capsule.TaskTracker.entity.Task;
+import com.capsule.TaskTracker.jdbc.ParentDao;
 import com.capsule.TaskTracker.jdbc.TaskDAO;
 //import com.tasktracker.jdbc.TaskDao;
 
@@ -15,6 +17,9 @@ public class TaskRepository {
 
 	@Autowired
 	private TaskDAO taskDao;
+	
+	@Autowired
+	private ParentDao parentDao;
 	
 	public List<Task> getTaskList() {
 		System.out.println("TaskListRepo");
@@ -45,4 +50,9 @@ public class TaskRepository {
 		TaskRepository pr = new TaskRepository();
 		System.out.println(pr.getTaskDb());
 	}*/
+
+	public boolean addParentTask(ParentTask parentTask) {
+		// TODO Auto-generated method stub
+		return parentDao.insertParent(parentTask);
+	}
 }

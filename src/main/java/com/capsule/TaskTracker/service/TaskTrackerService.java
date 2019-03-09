@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capsule.TaskTracker.entity.ParentTask;
 import com.capsule.TaskTracker.entity.Task;
 import com.capsule.TaskTracker.repository.TaskRepository;
 
@@ -34,6 +35,10 @@ public class TaskTrackerService {
 	}
 	public boolean updateFlipTask(Task task) {
 		return taskRepository.updateFlipTask(task);
+	}
+	public boolean createParentTask(ParentTask parentTask) {
+		// TODO Auto-generated method stub
+		return taskRepository.addParentTask(parentTask);
 	}
 
 }
