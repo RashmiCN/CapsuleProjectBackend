@@ -53,7 +53,7 @@ public class TaskControllerRest {
 		try {
 			isCreated = taskService.createTask(task);
 		} catch (Exception e) {
-			throw new TaskTrackerException("not inserted",e);
+			throw new TaskTrackerException("Task not created, Check if Parent task exists!",e);
 		}
 		
 		if(isCreated){
@@ -61,7 +61,7 @@ public class TaskControllerRest {
 		} else {
 //			return new ResponseEntity<Product>(HttpStatus.OK);
 			
-			return ResponseEntity.status(HttpStatus.OK).header("message", "not created").build();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("message", "Task not created, Check if Parent task exists!").build();
 		}
 	}
 	
@@ -93,13 +93,18 @@ public class TaskControllerRest {
 	@PutMapping(value="/edittask")
 	@Consumes({"application/json"})
 	@ResponseBody
-	public ResponseEntity<Task> updateTask(@RequestBody Task task){
-		boolean isCreated = taskService.updateTask(task);
+	public ResponseEntity<Task> updateTask(@RequestBody Task task) throws TaskTrackerException{
+		boolean isCreated = false;
+		try {
+			isCreated = taskService.updateTask(task);
+		} catch (Exception e) {
+			throw new TaskTrackerException("Task not updated, Check if Parent task exists and valid data is provided!",e);
+		}
 		if(isCreated){
 			return new ResponseEntity<Task>(HttpStatus.OK);
 		} else {
 //			return new ResponseEntity<Product>(HttpStatus.OK);
-			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).header("message", "not updated").build();
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).header("message", "Task Not Updated, Check Values provided").build();
 		}
 	}
 	
@@ -108,13 +113,18 @@ public class TaskControllerRest {
 		@PutMapping(value="/editFliptask")
 		@Consumes({"application/json"})
 		@ResponseBody
-		public ResponseEntity<Task> updateFlipTask(@RequestBody Task task){
-			boolean isCreated = taskService.updateFlipTask(task);
+		public ResponseEntity<Task> updateFlipTask(@RequestBody Task task) throws TaskTrackerException{
+			boolean isCreated = false;
+			try {
+				isCreated = taskService.updateFlipTask(task);
+			} catch (Exception e) {
+				throw new TaskTrackerException("Task not created, Check if data is correct!",e);
+			}
 			if(isCreated){
 				return new ResponseEntity<Task>(HttpStatus.CREATED);
 			} else {
 //				return new ResponseEntity<Product>(HttpStatus.OK);
-				return ResponseEntity.status(HttpStatus.OK).header("message", "not updated").build();
+				return ResponseEntity.status(HttpStatus.OK).header("message", "Task Not flipped, Please check the data entered").build();
 			}
 		}
 }
