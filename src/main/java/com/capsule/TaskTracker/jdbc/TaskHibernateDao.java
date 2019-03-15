@@ -30,22 +30,23 @@ public class TaskHibernateDao implements TaskDAO{
 	@Override
 	@Transactional
 	public boolean insertTask(Task task) {
-		System.out.println("inserting task " + task);
+//		System.out.println("inserting task " + task);
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		System.out.println("Current session insert" + currentSession);
-		
+//		System.out.println("Current session insert" + currentSession);
+//		Get Parent Task Class
 		String pTaskName = task.getParentTask().getParentTask();
 		Query<ParentTask> parentTaskQuery = currentSession.createQuery("from ParentTask where parentTask=:pTaskName");
 		parentTaskQuery.setParameter("pTaskName", pTaskName);
 		
+//		Set that to our task
 		ParentTask p = parentTaskQuery.getSingleResult();
-		System.out.println("parent id and task  " + p);
-		
+//		System.out.println("parent id and task  " + p);
 		task.setParentTask(p);
 		
-		System.out.println("task aft setting parent id" + task);
+//		System.out.println("task aft setting parent id" + task);
 		
+//		Now lets insert task
 		Task insTask = entityManager.merge(task);
 		System.out.println(insTask);
 		
@@ -53,17 +54,14 @@ public class TaskHibernateDao implements TaskDAO{
 	}
 	
 	public ParentTask inserParentTask(Task task) {
-		System.out.println("inserting Parent...............");
+//		System.out.println("inserting Parent...............");
 		Session currentSession = entityManager.unwrap(Session.class);
-//		Query<ParentTask> parentTaskQuery =
-//				currentSession.createQuery("insert into ParentTask values (?)");
-//		parentTaskQuery.setParameter(0, task.getParentTask().getParentTask());
-//		ParentTask pTask = parentTaskQuery.getSingleResult();
-		System.out.println("set the object");
+
+//		Set the parent task name -- id is auto inc
 		ParentTask pTask = new ParentTask(task.getParentTask().getParentTask());
-		System.out.println("save the object");
+
+//		save it
 		currentSession.saveOrUpdate(pTask);
-//		ParentTask savedTask = currentSession.get
 		System.out.println("parent id created  " + pTask);
 		
 		return pTask;
@@ -77,7 +75,7 @@ public class TaskHibernateDao implements TaskDAO{
 		Query<Task> query = 
 				currentSession.createQuery("select i from Task i JOIN FETCH i.parentTask where i.taskId=:id",Task.class);
 		query.setParameter("id", id);
-		System.out.println("Query" + query);
+//		System.out.println("Query" + query);
 		
 		Task existingTask = query.getSingleResult();
 		
@@ -86,12 +84,12 @@ public class TaskHibernateDao implements TaskDAO{
 
 	@Override
 	public List<Task> getTaskList() {
-		System.out.println("Hibernate");
+//		System.out.println("Hibernate");
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("Session" + currentSession);
+//		System.out.println("Session" + currentSession);
 		Query<Task> query = 
 				currentSession.createQuery("select i from Task i JOIN FETCH i.parentTask",Task.class);
-		System.out.println("Query" + query);
+//		System.out.println("Query" + query);
 		List<Task> taskList=query.getResultList();
 		return taskList;
 	}
@@ -115,11 +113,11 @@ public class TaskHibernateDao implements TaskDAO{
 		//lets get the Parent Task
 		task.setParentTask(getParentTaskID(task));		
 		
-		System.out.println("task aft setting parent  task  id " + task);
+//		System.out.println("task aft setting parent  task  id " + task);
 		task.setPriority(task.getPriority());
 		
 		Task tBefore = getTask(task.getTaskId());
-		System.out.println("task before delete" + tBefore);
+//		System.out.println("task before delete" + tBefore);
 		
 		tBefore.setTask(task.getTask());
 		tBefore.setStartDate(task.getStartDate());
@@ -141,7 +139,7 @@ public class TaskHibernateDao implements TaskDAO{
 		parentTaskQuery.setParameter("pTaskName", pTaskName);
 		
 		ParentTask parent = parentTaskQuery.getSingleResult();
-		System.out.println("parent id and task  " + parent);
+//		System.out.println("parent id and task  " + parent);
 //		currentSession.clear();
 		return parent;
 	}
@@ -149,7 +147,7 @@ public class TaskHibernateDao implements TaskDAO{
 
 	@Override
 	public boolean updateFlipTask(Task task,boolean flip) {
-		System.out.println("in flip..........................");
+//		System.out.println("in flip..........................");
 		Session currentSession = entityManager.unwrap(Session.class);
 		boolean isPresent = false;
 		ParentTask parent = null;
@@ -160,34 +158,34 @@ public class TaskHibernateDao implements TaskDAO{
 			// TODO: handle exception
 			//e.printStackTrace();
 			isPresent=false;
-			System.out.println("lets insert");
+//			System.out.println("lets insert");
 		}
 		if(isPresent==false) {
 //			currentSession.save(task.getParentTask());
 			parent = inserParentTask(task);
-			System.out.println("flip ins task is  :"+parent);
+//			System.out.println("flip ins task is  :"+parent);
 			
 		}
 		//lets get the Parent Task
-		System.out.println(parent);
+//		System.out.println(parent);
 		task.setParentTask(parent);		
 		
-		System.out.println("task aft setting parent  task  id " + task);
+//		System.out.println("task aft setting parent  task  id " + task);
 		task.setPriority(task.getPriority());
 		
 		Task tBefore = getTask(task.getTaskId());
-		System.out.println("task before update" + tBefore);
+//		System.out.println("task before update" + tBefore);
 		
 		tBefore.setTask(task.getTask());
 		tBefore.setStartDate(task.getStartDate());
 		tBefore.setEndDate(task.getEndDate());
 		tBefore.setPriority(task.getPriority());
 		tBefore.setParentTask(task.getParentTask());
-		System.out.println("updating..........................");
+//		System.out.println("updating..........................");
 		currentSession.update(tBefore);
-		System.out.println("save..............................");
+//		System.out.println("save..............................");
 		currentSession.save(tBefore);
-		System.out.println("task after update" + tBefore);
+//		System.out.println("task after update" + tBefore);
 		
 		return true;
 	}

@@ -25,7 +25,6 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="task_id")
-//	@JsonIgnore
 	private int taskId;
 	
 	

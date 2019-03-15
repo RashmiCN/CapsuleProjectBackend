@@ -20,8 +20,7 @@ public class ParentDao {
 
 	public boolean insertParent(ParentTask parentTask) {
 		Session currentSession = entityManager.unwrap(Session.class);
-//		ParentTask p = new ParentTask();
-//		p.setParentTask(parentTask);
+
 		currentSession.saveOrUpdate(parentTask);		
 		return true;
 	}

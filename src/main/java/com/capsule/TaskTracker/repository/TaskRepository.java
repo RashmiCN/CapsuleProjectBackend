@@ -22,7 +22,7 @@ public class TaskRepository {
 	private ParentDao parentDao;
 	
 	public List<Task> getTaskList() {
-		System.out.println("TaskListRepo");
+//		System.out.println("TaskListRepo");
 		return taskDao.getTaskList();
 	}
 
@@ -46,10 +46,7 @@ public class TaskRepository {
 		boolean flip = true;
 		return taskDao.updateFlipTask(task,flip);
 	}
-	/*public static void main(String[] args) {
-		TaskRepository pr = new TaskRepository();
-		System.out.println(pr.getTaskDb());
-	}*/
+
 
 	public boolean addParentTask(ParentTask parentTask) {
 		// TODO Auto-generated method stub

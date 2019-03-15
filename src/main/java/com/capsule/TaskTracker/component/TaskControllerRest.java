@@ -38,7 +38,7 @@ public class TaskControllerRest {
 	@Produces({"application/json"})
 	@ResponseBody
 	public List<Task> getTasks(){
-		System.out.println("contrller");
+//		System.out.println("contorller");
 		return taskService.getTasks();
 	}
 	
@@ -48,7 +48,7 @@ public class TaskControllerRest {
 	@Consumes({"application/json"})
 	@ResponseBody
 	public ResponseEntity<Task> createTask(@RequestBody Task task) throws TaskTrackerException{
-		System.out.println("task passed" + task);
+//		System.out.println("task passed" + task);
 		boolean isCreated = false;
 		try {
 			isCreated = taskService.createTask(task);
@@ -72,7 +72,7 @@ public class TaskControllerRest {
 	@Consumes({"application/json"})
 	@ResponseBody
 	public ResponseEntity<String> createParentTask(@RequestBody ParentTask parentTask) {
-		System.out.println("task passed" + parentTask);
+//		System.out.println("task passed" + parentTask);
 		boolean isCreated = false;
 		
 		isCreated = taskService.createParentTask(parentTask);

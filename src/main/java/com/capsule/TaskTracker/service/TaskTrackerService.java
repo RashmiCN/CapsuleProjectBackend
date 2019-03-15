@@ -17,7 +17,7 @@ public class TaskTrackerService {
 
 	// Get Task list
 	public List<Task> getTasks(){
-		System.out.println("get tasks");
+//		System.out.println("get tasks");
 		return taskRepository.getTaskList();
 	}
 	// create Task

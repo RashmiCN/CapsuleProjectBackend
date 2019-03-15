@@ -27,10 +27,6 @@ public class ParentTask {
 	@JsonProperty("parentTaskName")
 	private String parentTask;
 	
-//	@OneToMany(mappedBy="parentTask",
-//			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-//						 CascadeType.DETACH, CascadeType.REFRESH})
-//	private List<Task> task;
 
 	public int getParentId() {
 		return parentId;
@@ -47,14 +43,6 @@ public class ParentTask {
 	public void setParentTask(String parentTask) {
 		this.parentTask = parentTask;
 	}
-
-//	public List<Task> getTask() {
-//		return task;
-//	}
-//
-//	public void setTask(List<Task> task) {
-//		this.task = task;
-//	}
 
 	public ParentTask(String parentTask) {
 		super();
