@@ -112,6 +112,15 @@ public class Task {
 		this.endDate = endDate;
 		this.priority = priority;
 	}
+	
+	public Task(int taskId,String task, ParentTask parentTask, Date startDate, Date endDate, int priority) {
+		this.taskId = taskId;
+		this.task = task;
+		this.parentTask = parentTask;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.priority = priority;
+	}
 
 	public Task() {
 		super();

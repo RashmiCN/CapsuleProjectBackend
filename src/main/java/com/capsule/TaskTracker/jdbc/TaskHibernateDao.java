@@ -30,10 +30,10 @@ public class TaskHibernateDao implements TaskDAO{
 	@Override
 	@Transactional
 	public boolean insertTask(Task task) {
-//		System.out.println("inserting task " + task);
+		System.out.println("inserting task " + task);
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-//		System.out.println("Current session insert" + currentSession);
+		System.out.println("Current session insert" + currentSession);
 //		Get Parent Task Class
 		String pTaskName = task.getParentTask().getParentTask();
 		Query<ParentTask> parentTaskQuery = currentSession.createQuery("from ParentTask where parentTask=:pTaskName");
@@ -41,10 +41,10 @@ public class TaskHibernateDao implements TaskDAO{
 		
 //		Set that to our task
 		ParentTask p = parentTaskQuery.getSingleResult();
-//		System.out.println("parent id and task  " + p);
+		System.out.println("parent id and task  " + p);
 		task.setParentTask(p);
 		
-//		System.out.println("task aft setting parent id" + task);
+		System.out.println("task aft setting parent id" + task);
 		
 //		Now lets insert task
 		Task insTask = entityManager.merge(task);

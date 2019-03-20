@@ -48,6 +48,11 @@ public class ParentTask {
 		super();
 		this.parentTask = parentTask;
 	}
+	public ParentTask(int parentId,String parentTask) {
+		super();
+		this.parentId = parentId;
+		this.parentTask = parentTask;
+	}
     
 	
 	public ParentTask() {
