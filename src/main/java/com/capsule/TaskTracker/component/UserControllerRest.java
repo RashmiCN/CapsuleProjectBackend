@@ -35,7 +35,7 @@ public class UserControllerRest {
 		@ResponseBody
 		public List<User> getUsers(){
 			System.out.println("User Controller");
-			return userService.getTasks();
+			return userService.getUsers();
 		}
 
 		@PostMapping(value="/addUser")
@@ -78,6 +78,30 @@ public class UserControllerRest {
 				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).header("message", "Task Not Updated, Check Values provided").build();
 			}
 		}
+		
+		
+		 // Edit user
+		@CrossOrigin(origins = "http://localhost:4200")
+		@PutMapping(value="/deleteUser")
+		@Consumes({"application/json"})
+		@ResponseBody
+		public ResponseEntity<User> deleteUser(@RequestBody User user) throws TaskTrackerException{
+			boolean isdeleted = false;
+			System.out.println("passed id " + user.getUserId());
+			try {
+				isdeleted = userService.deleteUser(user.getUserId());
+			} catch (Exception e) {
+				throw new TaskTrackerException("User not deleted, Check if valid data is provided!",e);
+			}
+			if(isdeleted){
+				return new ResponseEntity<User>(HttpStatus.OK);
+			} else {
+//				return new ResponseEntity<Product>(HttpStatus.OK);
+				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).header("message", "Task Not Updated, Check Values provided").build();
+			}
+		}
+		
+		
 		
 		
 		 // get 1 user

@@ -42,6 +42,18 @@ public class TaskControllerRest {
 		return taskService.getTasks();
 	}
 	
+	// Get Task List
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value="/getParentTasks/{id}")
+	@Produces({"application/json"})
+	@ResponseBody
+	public List<ParentTask> getParentTasks(@PathVariable int id){
+		System.out.println("contorller get parent task " + id);
+		return taskService.getParentTasks(id);
+	}
+
+	
+	
 	// Create Tasks
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value="/addtask")

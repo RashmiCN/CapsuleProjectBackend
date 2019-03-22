@@ -28,26 +28,40 @@ public class Task {
 	private int taskId;
 	
 	
+//	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+//						 CascadeType.DETACH, CascadeType.REFRESH})
+//	@JoinColumn(name="parent_id")
+//	@JsonUnwrapped
+//	@JsonProperty("parentTaskName")
+//	private ParentTask parentTask;
+	
+	@Column(name="parent_id")
+	@JsonProperty("parentId")
+	private int parentId; 
+	
+	@Column(name="project_id")
+	@JsonProperty("projectId")
+	private int projectId; 
 	
 	@Column(name="task")
 	@JsonProperty("taskName")
 	private String task;
 	
-	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-						 CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinColumn(name="parent_id")
-	@JsonUnwrapped
-	@JsonProperty("parentTaskName")
-	private ParentTask parentTask;
-	
 	@Column(name="start_date")
+	@JsonProperty("startDate")
 	private Date startDate;
 	
 	@Column(name="end_date")
+	@JsonProperty("endDate")
 	private Date endDate;
 	
 	@Column(name="priority")
+	@JsonProperty("priority")
 	private int priority;
+
+	@Column(name="status")
+	@JsonProperty("status")
+	private String status;
 
 	public int getTaskId() {
 		return taskId;
@@ -57,13 +71,20 @@ public class Task {
 		this.taskId = taskId;
 	}
 
-	
-	public ParentTask getParentTask() {
-		return parentTask;
+	public int getParentId() {
+		return parentId;
 	}
 
-	public void setParentTask(ParentTask parentTask) {
-		this.parentTask = parentTask;
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 
 	public String getTask() {
@@ -98,32 +119,32 @@ public class Task {
 		this.priority = priority;
 	}
 
-	@Override
-	public String toString() {
-		return "Task [TaskId=" + taskId + ", parentTask=" + parentTask + ", task=" + task + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", priority=" + priority + "]";
+	public String getStatus() {
+		return status;
 	}
 
-	public Task(ParentTask parentTask, String task, Date startDate, Date endDate, int priority) {
-		super();
-		this.parentTask = parentTask;
-		this.task = task;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.priority = priority;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	
-	public Task(int taskId,String task, ParentTask parentTask, Date startDate, Date endDate, int priority) {
+
+	public Task(int taskId, int parentId, int projectId, String task, Date startDate, Date endDate, int priority,
+			String status) {
+		super();
 		this.taskId = taskId;
+		this.parentId = parentId;
+		this.projectId = projectId;
 		this.task = task;
-		this.parentTask = parentTask;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.priority = priority;
+		this.status = status;
 	}
 
 	public Task() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	
+	
+		
 }

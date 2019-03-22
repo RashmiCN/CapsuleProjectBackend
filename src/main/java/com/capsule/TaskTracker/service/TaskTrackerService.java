@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.capsule.TaskTracker.entity.ParentTask;
 import com.capsule.TaskTracker.entity.Task;
+import com.capsule.TaskTracker.jdbc.TaskDAO;
 import com.capsule.TaskTracker.repository.TaskRepository;
 
 @Service
@@ -14,6 +15,9 @@ public class TaskTrackerService {
 	
 	@Autowired
 	TaskRepository taskRepository;
+	
+	@Autowired
+	TaskDAO taskDAO;
 
 	// Get Task list
 	public List<Task> getTasks(){
@@ -39,6 +43,11 @@ public class TaskTrackerService {
 	public boolean createParentTask(ParentTask parentTask) {
 		// TODO Auto-generated method stub
 		return taskRepository.addParentTask(parentTask);
+	}
+	
+	public List<ParentTask> getParentTasks(int id) {
+		// TODO Auto-generated method stub
+		return taskDAO.getParentTasks(id);
 	}
 
 }

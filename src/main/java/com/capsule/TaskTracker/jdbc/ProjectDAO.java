@@ -10,73 +10,73 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
+import com.capsule.TaskTracker.entity.Project;
 import com.capsule.TaskTracker.entity.Task;
 import com.capsule.TaskTracker.entity.User;
 
 @Repository
-public class UserDAO {
+public class ProjectDAO {
 	
 	EntityManager entityManager;
 	
 	
 	@Autowired
-	public UserDAO(EntityManager theEntityManager) {
+	public ProjectDAO(EntityManager theEntityManager) {
 		entityManager = theEntityManager;
 	}
 	
 
-	public boolean insertUser(User user) {
+	public boolean createProject(Project project) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("inserting user...........");
-		System.out.println(user);
+		System.out.println("inserting project...........");
+		System.out.println(project);
 		
-		currentSession.save(user);
+		currentSession.save(project);
 		return true;
 	}
 
-	public User getUser(int userId) {
+	public Project getProject(int projectId) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		System.out.println(userId);
-		System.out.println("get user dta");
+		System.out.println(projectId);
+		System.out.println("get project dta");
 		
-		Query<User> query = 
-				currentSession.createQuery("from User where userId=:id",User.class);
-		query.setParameter("id", userId);
+		Query<Project> query = 
+				currentSession.createQuery("from Project where projectId=:id",Project.class);
+		query.setParameter("id", projectId);
 //		System.out.println("Query" + query);
 		
-		User existingUser = query.getSingleResult();
-		System.out.println("get user dta");
+		Project existingProject = query.getSingleResult();
 		
-		System.out.println(existingUser);
-		return existingUser;
+		System.out.println(existingProject);
+		return existingProject;
 	}
 
-	public List<User> getUserList() {
+	public List<Project> getProjectList() {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		Query<User> query = 
-				currentSession.createQuery("from User",User.class);
+		Query<Project> query = 
+				currentSession.createQuery("from Project",Project.class);
 		
-		List<User> userList = query.getResultList();
-		System.out.println(userList);
+		List<Project> projectList = query.getResultList();
+		System.out.println(projectList);
 		
-		return userList;
+		return projectList;
 	}
 
-	public boolean deleteUser(int userId) {
+	public boolean deleteProject(int projectId) {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
-		User existingUser = getUser(userId);
-		currentSession.delete(existingUser);
+		Project existingProject = getProject(projectId);
+		currentSession.delete(existingProject);
 		return true;
 	}
 
 	@Modifying(flushAutomatically = true, clearAutomatically = true)
-	public boolean updateUser(User user) {
+	public boolean updateProject(Project project) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("entring updater");
-		System.out.println(user);
+		System.out.println("entring project");
+		System.out.println(project);
 		
 //		User existingUser = getUser(user.getUserId());
 //		
@@ -91,7 +91,7 @@ public class UserDAO {
 //		
 //		currentSession.save(existingUser);
 //		currentSession.update(existingUser);
-		currentSession.update(user);
+		currentSession.update(project);
 		currentSession.close();
 //		currentSession.flush();
 //		User diditupdtUser = getUser(user.getUserId());
@@ -100,4 +100,6 @@ public class UserDAO {
 		return true;
 	}
 
+
+	
 }

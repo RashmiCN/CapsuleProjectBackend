@@ -20,7 +20,6 @@ public class ParentTask {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@JsonIgnore
 	private int parentId;
 	
 	@Column(name="parent_task")

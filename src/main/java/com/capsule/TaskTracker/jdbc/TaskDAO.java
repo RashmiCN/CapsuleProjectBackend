@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.capsule.TaskTracker.entity.ParentTask;
 import com.capsule.TaskTracker.entity.Task;
 
 public interface TaskDAO {
@@ -14,5 +15,8 @@ public interface TaskDAO {
 	boolean deleteTask(int id);
 	boolean updateTask(Task task);
 	boolean updateFlipTask(Task task, boolean flip);
+	List<Task> getCompletedTasks(int projectId);
+	List<Task> getProjectTasks(int projectId);
+	List<ParentTask> getParentTasks(int id);
 
 }

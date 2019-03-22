@@ -8,37 +8,37 @@ import org.springframework.stereotype.Service;
 import com.capsule.TaskTracker.entity.ParentTask;
 import com.capsule.TaskTracker.entity.Task;
 import com.capsule.TaskTracker.entity.User;
-import com.capsule.TaskTracker.repository.UserRepository;
+import com.capsule.TaskTracker.jdbc.UserDAO;
 
 @Service
 public class UserService {
 	
 	
 	@Autowired
-	UserRepository userRepository;
+	UserDAO userDAO;
 	
-	public List<User> getTasks(){
+	public List<User> getUsers(){
 //		System.out.println("get tasks");
-		return userRepository.getUserList();
+		return userDAO.getUserList();
 	}
 	// create User
 	public boolean createUser(User user) {
-		return userRepository.createUser(user);
+		return userDAO.insertUser(user);
 	}
 	
 	// get requested user	
 	public User getUser(int id) {
-		return userRepository.getUser(id);
+		return userDAO.getUser(id);
 	}
 	
 	// delete user	
 	public boolean deleteUser(int id) {
-		return userRepository.deleteUser(id);
+		return userDAO.deleteUser(id);
 	}
 	
 	// Update user	
 	public boolean updateUser(User user) {
-		return userRepository.updateUser(user);
+		return userDAO.updateUser(user);
 	}
 
 
