@@ -41,4 +41,16 @@ public class ParentDao {
 		return pList;
 	}
 
+	public ParentTask getParentTask(int id) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<ParentTask> query = 
+				currentSession.createQuery("from ParentTask where parentId=:id",ParentTask.class);
+		query.setParameter("id",id);
+		ParentTask pTask = query.getSingleResult();
+		System.out.println(pTask);
+		
+		return pTask;
+	}
+
 }

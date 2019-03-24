@@ -22,13 +22,22 @@ public class ParentControllerRest {
 	@Autowired
 	ParentService parentService;
 	
-	// Get Task List
-//		@GetMapping(value="/getParentTasks/{id}")
-//		@Produces({"application/json"})
-//		@ResponseBody
-//		public List<ParentTask> getParentTasks(@PathVariable int id){
-////			System.out.println("contorller");
-//			return parentService.getParentTasks(id);
-//		}
+	 //Get Task List
+		@GetMapping(value="/getParentTasks")
+		@Produces({"application/json"})
+		@ResponseBody
+		public List<ParentTask> getParentTasks(){
+//			System.out.println("contorller");
+			return parentService.getParentTasks();
+		}
+		
+		//Get Task List
+		@GetMapping(value="/getParentTask/{id}")
+		@Produces({"application/json"})
+		@ResponseBody
+		public ParentTask getParentTask(@PathVariable int id){
+//					System.out.println("contorller");
+			return parentService.getParentTask(id);
+		}	
 
 }

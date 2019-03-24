@@ -40,6 +40,10 @@ public class UserService {
 	public boolean updateUser(User user) {
 		return userDAO.updateUser(user);
 	}
+	public User getUserByProjectId(int id) {
+		// TODO Auto-generated method stub
+		return userDAO.getUserbyProjectId(id);
+	}
 
 
 }

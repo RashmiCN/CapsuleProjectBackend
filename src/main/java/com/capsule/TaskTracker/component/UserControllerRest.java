@@ -120,4 +120,20 @@ public class UserControllerRest {
 			
 		}
 		
+		 // get 1 user
+		@GetMapping(value="/getuserbyproject/{id}")
+		@Produces({"application/json"})
+		@ResponseBody
+		public User getUserByProjectId(@PathVariable int id) throws TaskTrackerException{
+			System.out.println("get 1 project id" + id);
+			User userFetched = null;
+			try {
+			    userFetched = userService.getUserByProjectId(id);
+			} catch (Exception e) {
+				throw new TaskTrackerException("User not updated, Check if valid data is provided!",e);
+			}
+			return userFetched;
+			
+		}
+		
 }

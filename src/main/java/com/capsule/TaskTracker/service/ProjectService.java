@@ -27,7 +27,7 @@ public class ProjectService {
 		return projectDAO.getProjectList();
 	}
 	// create User
-	public boolean createProject(Project project) {
+	public Project createProject(Project project) {
 		return projectDAO.createProject(project);
 	}
 	
@@ -50,6 +50,10 @@ public class ProjectService {
 	}
 	public List<Task> getProjectTasks(int projectId) {
 		return taskDAO.getProjectTasks(projectId);
+	}
+	public Project getProjectByPName(String projectName) {
+		// TODO Auto-generated method stub
+		return projectDAO.getProjectByPName(projectName);
 	}
 	
 

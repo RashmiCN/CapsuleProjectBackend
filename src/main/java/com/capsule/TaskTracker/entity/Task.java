@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @Entity
-@Table(name="task_table",
-		uniqueConstraints = {@UniqueConstraint(columnNames={"parent_id", "task"})}
+@Table(name="task_table"
+//		,uniqueConstraints = {@UniqueConstraint(columnNames={"parent_id", "task"})}
 		)
 public class Task {
 	
@@ -36,7 +36,7 @@ public class Task {
 //	private ParentTask parentTask;
 	
 	@Column(name="parent_id")
-	@JsonProperty("parentId")
+	@JsonProperty("parentTaskId")
 	private int parentId; 
 	
 	@Column(name="project_id")
@@ -44,7 +44,7 @@ public class Task {
 	private int projectId; 
 	
 	@Column(name="task")
-	@JsonProperty("taskName")
+	@JsonProperty("task")
 	private String task;
 	
 	@Column(name="start_date")

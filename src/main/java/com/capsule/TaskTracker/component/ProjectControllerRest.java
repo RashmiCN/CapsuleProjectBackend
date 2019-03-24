@@ -42,22 +42,16 @@ public class ProjectControllerRest {
 		@PostMapping(value="/addproject")
 		@Consumes({"application/json"})
 		@ResponseBody
-		public ResponseEntity<Project> createProject(@RequestBody Project project) throws TaskTrackerException{
+		public Project createProject(@RequestBody Project project) throws TaskTrackerException{
 //			System.out.println("task passed" + task);
-			boolean isCreated = false;
+			Project createdProject = null;
 			try {
-				isCreated = projectService.createProject(project);
+				createdProject = projectService.createProject(project);
 			} catch (Exception e) {
 				throw new TaskTrackerException("projectnot created, Check if Parent task exists!",e);
 			}
-			
-			if(isCreated){
-				return new ResponseEntity<Project>(HttpStatus.CREATED);
-			} else {
-//				return new ResponseEntity<Product>(HttpStatus.OK);
-				
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("message", "project not created, Check if project exists!").build();
-			}
+			System.out.println(createdProject);
+			return createdProject;
 		}
 		
 		 // Edit project
@@ -83,12 +77,12 @@ public class ProjectControllerRest {
 		
 		 // Edit project
 		@CrossOrigin(origins = "http://localhost:4200")
-		@PutMapping(value="/deleteProject")
+		@PutMapping(value="/deleteproject")
 		@Consumes({"application/json"})
 		@ResponseBody
 		public ResponseEntity<Project> deleteProject(@RequestBody Project project) throws TaskTrackerException{
 			boolean isdeleted = false;
-			System.out.println("passed id " + project.getProjectId());
+			System.out.println("passed id " + project);
 			try {
 				isdeleted = projectService.deleteProject(project.getProjectId());
 			} catch (Exception e) {
@@ -119,6 +113,22 @@ public class ProjectControllerRest {
 			}
 			return projectFetched;	
 		}
+		
+		 // get 1 project
+		@GetMapping(value="/getprojectByPName/{projectName}")
+		@Produces({"application/json"})
+		@ResponseBody
+		public Project getProjectByPName(@PathVariable String projectName) throws TaskTrackerException{
+			System.out.println("get 1 project" + projectName);
+			Project projectFetched = null;
+			try {
+			    projectFetched = projectService.getProjectByPName(projectName);
+			} catch (Exception e) {
+				throw new TaskTrackerException("project not updafetched, Check if valid data is provided!",e);
+			}
+			return projectFetched;	
+		}
+
 		
 		@GetMapping(value="/getcompleted/{id}")
 		@Produces({"application/json"})

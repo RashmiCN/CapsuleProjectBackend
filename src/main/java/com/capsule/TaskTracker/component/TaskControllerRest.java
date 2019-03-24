@@ -34,23 +34,23 @@ public class TaskControllerRest {
 	
 	// Get Task List
 	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping(value="/task")
+	@GetMapping(value="/gettasks/{id}")
 	@Produces({"application/json"})
 	@ResponseBody
-	public List<Task> getTasks(){
+	public List<Task> getTasks(@PathVariable int id){
 //		System.out.println("contorller");
-		return taskService.getTasks();
+		return taskService.getTasks(id);
 	}
 	
 	// Get Task List
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping(value="/getParentTasks/{id}")
-	@Produces({"application/json"})
-	@ResponseBody
-	public List<ParentTask> getParentTasks(@PathVariable int id){
-		System.out.println("contorller get parent task " + id);
-		return taskService.getParentTasks(id);
-	}
+		@CrossOrigin(origins = "http://localhost:4200")
+		@GetMapping(value="/gettask/{id}")
+		@Produces({"application/json"})
+		@ResponseBody
+		public Task getTask(@PathVariable int id){
+//			System.out.println("contorller");
+			return taskService.getTask(id);
+		}
 
 	
 	
@@ -60,7 +60,7 @@ public class TaskControllerRest {
 	@Consumes({"application/json"})
 	@ResponseBody
 	public ResponseEntity<Task> createTask(@RequestBody Task task) throws TaskTrackerException{
-//		System.out.println("task passed" + task);
+		System.out.println("task passed" + task);
 		boolean isCreated = false;
 		try {
 			isCreated = taskService.createTask(task);
@@ -87,7 +87,7 @@ public class TaskControllerRest {
 //		System.out.println("task passed" + parentTask);
 		boolean isCreated = false;
 		
-		isCreated = taskService.createParentTask(parentTask);
+//		isCreated = taskService.createParentTask(parentTask);
 		
 		if(isCreated){
 			return new ResponseEntity<String>(HttpStatus.CREATED);
@@ -120,23 +120,35 @@ public class TaskControllerRest {
 		}
 	}
 	
-	   // Edit Flipped Task
+	
+	// completeTask
+	// Edit Non Flipped Task
 		@CrossOrigin(origins = "http://localhost:4200")
-		@PutMapping(value="/editFliptask")
+		@PutMapping(value="/completeTask/{id}")
 		@Consumes({"application/json"})
 		@ResponseBody
-		public ResponseEntity<Task> updateFlipTask(@RequestBody Task task) throws TaskTrackerException{
+		public ResponseEntity<Task> completeTask(@PathVariable int id) throws TaskTrackerException{
 			boolean isCreated = false;
 			try {
-				isCreated = taskService.updateFlipTask(task);
+				isCreated = taskService.completeTask(id);
 			} catch (Exception e) {
-				throw new TaskTrackerException("Task not created, Check if data is correct!",e);
+				throw new TaskTrackerException("Task not updated, Check if Parent task exists and valid data is provided!",e);
 			}
 			if(isCreated){
-				return new ResponseEntity<Task>(HttpStatus.CREATED);
+				return new ResponseEntity<Task>(HttpStatus.OK);
 			} else {
 //				return new ResponseEntity<Product>(HttpStatus.OK);
-				return ResponseEntity.status(HttpStatus.OK).header("message", "Task Not flipped, Please check the data entered").build();
+				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).header("message", "Task Not Updated, Check Values provided").build();
 			}
+		}
+	
+	// Get Task List
+		@CrossOrigin(origins = "http://localhost:4200")
+		@GetMapping(value="/getTaskbytask/{datatohelp}")
+		@Produces({"application/json"})
+		@ResponseBody
+		public Task getTaskIdbyParentNProject(@PathVariable String datatohelp){
+			System.out.println("contorller" + datatohelp);
+			return taskService.getTaskIdbyParentNProject(datatohelp);
 		}
 }

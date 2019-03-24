@@ -2,6 +2,7 @@ package com.capsule.TaskTracker.jdbc;
 
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.capsule.TaskTracker.entity.Task;
 import com.capsule.TaskTracker.entity.User;
@@ -64,6 +66,7 @@ public class UserDAO {
 		return userList;
 	}
 
+	@Transactional
 	public boolean deleteUser(int userId) {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
@@ -72,7 +75,7 @@ public class UserDAO {
 		return true;
 	}
 
-	@Modifying(flushAutomatically = true, clearAutomatically = true)
+	@Transactional
 	public boolean updateUser(User user) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		System.out.println("entring updater");
@@ -98,6 +101,35 @@ public class UserDAO {
 //		
 //		System.out.println("this is updated user" + diditupdtUser);
 		return true;
+	}
+
+
+	public User getUserbyProjectId(int id) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		System.out.println(id);
+		System.out.println("get user dta by project id"+ id);
+		
+		Query<User> query = 
+				currentSession.createQuery("from User where projectId=:id",User.class);
+		query.setParameter("id", id);
+//		System.out.println("Query" + query);
+		
+		User existingUser = query.getSingleResult();
+		System.out.println("get user dta");
+		
+		System.out.println(existingUser);
+		return existingUser;
+	}
+
+
+	public void updateUsersdelete(int projectId) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		System.out.println("updating User on delete for project " + projectId);
+		Query query = 
+				currentSession.createQuery("update User set project_id = 0 where project_id=:id");
+		query.setParameter("id", projectId);
+		int result = query.executeUpdate();
 	}
 
 }

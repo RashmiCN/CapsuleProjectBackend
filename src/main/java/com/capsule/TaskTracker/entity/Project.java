@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +41,24 @@ public class Project {
 	@Column(name="priority")
 	@JsonProperty("priority")
 	private int priority;
+	
+//	@JsonProperty("userID")
+//	private int userId;
+//	
+//	@OneToOne(cascade= {CascadeType.MERGE, CascadeType.MERGE,
+//			 CascadeType.DETACH, CascadeType.REFRESH})
+//	@JoinColumn(name="project_id")
+//	@JsonProperty("userId")
+//	private User user;
+	
+//	
+//	public User getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(User userId) {
+//		this.userId = userId;
+//	}
 
 	public Project(int projectId, String project, Date startDate, Date endDate, int priority) {
 		super();

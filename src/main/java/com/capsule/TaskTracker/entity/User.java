@@ -1,5 +1,6 @@
 package com.capsule.TaskTracker.entity;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="users_table")
+@Cacheable(false)
 public class User {
 
 	@Id

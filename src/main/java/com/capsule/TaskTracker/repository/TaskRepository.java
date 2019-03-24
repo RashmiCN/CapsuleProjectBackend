@@ -41,11 +41,6 @@ public class TaskRepository {
 	public boolean updateTask(Task task) {
 		return taskDao.updateTask(task);
 	}
-	
-	public boolean updateFlipTask(Task task) {
-		boolean flip = true;
-		return taskDao.updateFlipTask(task,flip);
-	}
 
 
 	public boolean addParentTask(ParentTask parentTask) {

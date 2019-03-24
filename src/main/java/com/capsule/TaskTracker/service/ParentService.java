@@ -18,13 +18,14 @@ public class ParentService {
 	
 	
 	@Autowired
-	ParentDao parentDAO;	
-	
+	ParentDao parentDAO;
+
 	public List<ParentTask> getParentTasks(){
-//		System.out.println("get tasks");
 		return parentDAO.getParentTasks();
 	}
-	
-	
+
+	public ParentTask getParentTask(int id) {
+		return parentDAO.getParentTask(id);
+	}	
 
 }

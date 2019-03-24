@@ -8,46 +8,49 @@ import org.springframework.stereotype.Service;
 import com.capsule.TaskTracker.entity.ParentTask;
 import com.capsule.TaskTracker.entity.Task;
 import com.capsule.TaskTracker.jdbc.TaskDAO;
-import com.capsule.TaskTracker.repository.TaskRepository;
 
 @Service
 public class TaskTrackerService {
-	
-	@Autowired
-	TaskRepository taskRepository;
-	
+		
 	@Autowired
 	TaskDAO taskDAO;
 
 	// Get Task list
-	public List<Task> getTasks(){
+	public List<Task> getTasks(int id){
 //		System.out.println("get tasks");
-		return taskRepository.getTaskList();
+		return taskDAO.getTaskList(id);
 	}
 	// create Task
 	public boolean createTask(Task Task) {
-		return taskRepository.createTask(Task);
+		return taskDAO.insertTask(Task);
 	}
 	public Task getTask(int id) {
-		return taskRepository.getTask(id);
+		return taskDAO.getTask(id);
 	}
 	public boolean deleteTask(int id) {
-		return taskRepository.deleteTask(id);
+		return taskDAO.deleteTask(id);
 	}
 	public boolean updateTask(Task task) {
-		return taskRepository.updateTask(task);
+		return taskDAO.updateTask(task);
 	}
-	public boolean updateFlipTask(Task task) {
-		return taskRepository.updateFlipTask(task);
-	}
-	public boolean createParentTask(ParentTask parentTask) {
+
+//	public boolean createParentTask(ParentTask parentTask) {
+//		// TODO Auto-generated method stub
+//		return taskDAO.in(parentTask);
+//	}
+	
+//	public List<ParentTask> getParentTasks(int id) {
+//		// TODO Auto-generated method stub
+//		return taskDAO.getParentTasks(id);
+//	}
+	public Task getTaskIdbyParentNProject(String datatohelp) {
 		// TODO Auto-generated method stub
-		return taskRepository.addParentTask(parentTask);
+		return taskDAO.getTaskIdbyParentNProject(datatohelp);
 	}
 	
-	public List<ParentTask> getParentTasks(int id) {
-		// TODO Auto-generated method stub
-		return taskDAO.getParentTasks(id);
+	public boolean completeTask(int id) {
+		
+		return taskDAO.completeTask(id);
 	}
 
 }
