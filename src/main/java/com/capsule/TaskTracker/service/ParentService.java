@@ -26,6 +26,11 @@ public class ParentService {
 
 	public ParentTask getParentTask(int id) {
 		return parentDAO.getParentTask(id);
+	}
+
+	public boolean createParentTask(ParentTask parentTask) {
+		// TODO Auto-generated method stub
+		return parentDAO.createParentTask(parentTask);
 	}	
 
 }

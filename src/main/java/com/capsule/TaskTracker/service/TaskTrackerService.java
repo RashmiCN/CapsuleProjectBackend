@@ -34,15 +34,7 @@ public class TaskTrackerService {
 		return taskDAO.updateTask(task);
 	}
 
-//	public boolean createParentTask(ParentTask parentTask) {
-//		// TODO Auto-generated method stub
-//		return taskDAO.in(parentTask);
-//	}
 	
-//	public List<ParentTask> getParentTasks(int id) {
-//		// TODO Auto-generated method stub
-//		return taskDAO.getParentTasks(id);
-//	}
 	public Task getTaskIdbyParentNProject(String datatohelp) {
 		// TODO Auto-generated method stub
 		return taskDAO.getTaskIdbyParentNProject(datatohelp);

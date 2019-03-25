@@ -134,19 +134,6 @@ public class TaskDAO {
 	}
 
 
-//	public List<ParentTask> getParentTasks(int id) {
-//		Session currentSession = entityManager.unwrap(Session.class);
-////		Query<Task> query = 
-////				currentSession.createQuery("select i from Task i JOIN FETCH i.parentTask where i.taskId=:id",Task.class);
-//		Query<ParentTask> query = 
-//				currentSession.createQuery("select i from ParentTask i join Task t fetch  ",ParentTask.class);
-//		query.setParameter("id", id);
-//		
-////		Query<Task> query = 
-////				currentSession.createQuery("select i from Task i JOIN FETCH i.parentTask",Task.class);
-//		return null;
-//	}
-
 
 	public Task getTaskIdbyParentNProject(String datatohelp) {
 		Session currentSession = entityManager.unwrap(Session.class);

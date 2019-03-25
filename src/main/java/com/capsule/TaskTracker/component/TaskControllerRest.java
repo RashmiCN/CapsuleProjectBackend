@@ -58,6 +58,7 @@ public class TaskControllerRest {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value="/addtask")
 	@Consumes({"application/json"})
+	@Produces({"application/json"})
 	@ResponseBody
 	public ResponseEntity<Task> createTask(@RequestBody Task task) throws TaskTrackerException{
 		System.out.println("task passed" + task);
@@ -78,29 +79,8 @@ public class TaskControllerRest {
 	}
 	
 	
-	// Create Tasks
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping(value="/addParentTask")
-	@Consumes({"application/json"})
-	@ResponseBody
-	public ResponseEntity<String> createParentTask(@RequestBody ParentTask parentTask) {
-//		System.out.println("task passed" + parentTask);
-		boolean isCreated = false;
-		
-//		isCreated = taskService.createParentTask(parentTask);
-		
-		if(isCreated){
-			return new ResponseEntity<String>(HttpStatus.CREATED);
-		} else {
-//			return new ResponseEntity<Product>(HttpStatus.OK);
-			
-			return ResponseEntity.status(HttpStatus.OK).header("message", "not created").build();
-		}
-	}
 	
-	
-	
-   // Edit Non Flipped Task
+   // Edit  Task
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping(value="/edittask")
 	@Consumes({"application/json"})

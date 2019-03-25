@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.capsule.TaskTracker.entity.ParentTask;
 import com.capsule.TaskTracker.entity.User;
 
@@ -51,6 +53,15 @@ public class ParentDao {
 		System.out.println(pTask);
 		
 		return pTask;
+	}
+
+	@Transactional
+	public boolean createParentTask(ParentTask parentTask) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		System.out.println("inserting parent.....................");
+		System.out.println("input is" + parentTask);
+		currentSession.save(parentTask);
+		return true;
 	}
 
 }
