@@ -108,7 +108,7 @@ public class ProjectDAO {
 //		currentSession.save(existingUser);
 //		currentSession.update(existingUser);
 		currentSession.update(project);
-		currentSession.close();
+//		currentSession.close();
 //		currentSession.flush();
 //		User diditupdtUser = getUser(user.getUserId());
 //		
