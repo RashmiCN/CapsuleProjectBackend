@@ -34,29 +34,29 @@ public class TaskDAO {
 	
 	@Transactional
 	public boolean insertTask(Task task) {
-		System.out.println("inserting task " + task);
+//		System.out.println("inserting task " + task);
 		task.setStatus("NEW");
 		Session currentSession = entityManager.unwrap(Session.class);
 		currentSession.save(task);
-		System.out.println(task);
+//		System.out.println(task);
 		return true;
 	}
 	
-	@Transactional
-	public ParentTask inserParentTask(Task task) {
-		System.out.println("inserting Parent...............");
-		Session currentSession = entityManager.unwrap(Session.class);
-
-//		Set the parent task name -- id is auto inc
-		ParentTask pTask = new ParentTask(task.getParentId(),task.getTask());
-
-//		save it
-		currentSession.save(pTask);
-		System.out.println("parent id created  " + pTask);
-		
-		return pTask;
-	}
-
+//	@Transactional
+//	public ParentTask inserParentTask(Task task) {
+////		System.out.println("inserting Parent...............");
+//		Session currentSession = entityManager.unwrap(Session.class);
+//
+////		Set the parent task name -- id is auto inc
+//		ParentTask pTask = new ParentTask(task.getParentId(),task.getTask());
+//
+////		save it
+//		currentSession.save(pTask);
+////		System.out.println("parent id created  " + pTask);
+//		
+//		return pTask;
+//	}
+//
 
 	public Task getTask(int id) {
 		// TODO Auto-generated method stub
@@ -91,7 +91,7 @@ public class TaskDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		Task task = null;
 		task = getTask(id);
-		System.out.println("deleting task.........." + task);
+//		System.out.println("deleting task.........." + task);
 		currentSession.delete(task);
 		return true;
 	}
@@ -100,10 +100,10 @@ public class TaskDAO {
 	public boolean updateTask(Task task) {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("updating task.........." + task);
+//		System.out.println("updating task.........." + task);
 		task.setStatus("NEW");
 		currentSession.update(task);
-		System.out.println("updated!");
+//		System.out.println("updated!");
 		return true;
 	}
 	
@@ -156,7 +156,7 @@ public class TaskDAO {
 	public void updateProjectsdelete(int projectId) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		System.out.println("updating task on delete for project " + projectId);
+//		System.out.println("updating task on delete for project " + projectId);
 		Query query = 
 				currentSession.createQuery("update Task set project_id = 0 where project_id=:id");
 		query.setParameter("id", projectId);
@@ -166,7 +166,7 @@ public class TaskDAO {
 	@Transactional
 	public boolean completeTask(int id) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("completeing tasks...................");
+//		System.out.println("completeing tasks...................");
 		Task task = getTask(id);
 		//update status 
 		task.setStatus("COMPL");
@@ -182,7 +182,7 @@ public class TaskDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("final date " + date);
+//		System.out.println("final date " + date);
 		task.setEndDate(date);
 		System.out.println("aaaaannnnnsdddd completed " + date);
 		currentSession.update(task);

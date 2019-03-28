@@ -29,7 +29,7 @@ public class UserDAO {
 
 	public boolean insertUser(User user) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("inserting user...........");
+//		System.out.println("inserting user...........");
 		System.out.println(user);
 		
 		currentSession.save(user);
@@ -39,8 +39,8 @@ public class UserDAO {
 	public User getUser(int userId) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		System.out.println(userId);
-		System.out.println("get user dta");
+//		System.out.println(userId);
+//		System.out.println("get user dta");
 		
 		Query<User> query = 
 				currentSession.createQuery("from User where userId=:id",User.class);
@@ -48,9 +48,9 @@ public class UserDAO {
 //		System.out.println("Query" + query);
 		
 		User existingUser = query.getSingleResult();
-		System.out.println("get user dta");
+//		System.out.println("get user dta");
 		
-		System.out.println(existingUser);
+//		System.out.println(existingUser);
 		return existingUser;
 	}
 
@@ -61,7 +61,7 @@ public class UserDAO {
 				currentSession.createQuery("from User",User.class);
 		
 		List<User> userList = query.getResultList();
-		System.out.println(userList);
+//		System.out.println(userList);
 		
 		return userList;
 	}
@@ -78,8 +78,8 @@ public class UserDAO {
 	@Transactional
 	public boolean updateUser(User user) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("entring updater");
-		System.out.println(user);
+//		System.out.println("entring updater");
+//		System.out.println(user);
 		
 //		User existingUser = getUser(user.getUserId());
 //		
@@ -107,8 +107,8 @@ public class UserDAO {
 	public User getUserbyProjectId(int id) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		System.out.println(id);
-		System.out.println("get user dta by project id"+ id);
+//		System.out.println(id);
+//		System.out.println("get user dta by project id"+ id);
 		
 		Query<User> query = 
 				currentSession.createQuery("from User where projectId=:id",User.class);
@@ -116,16 +116,16 @@ public class UserDAO {
 //		System.out.println("Query" + query);
 		
 		User existingUser = query.getSingleResult();
-		System.out.println("get user dta");
+//		System.out.println("get user dta");
 		
-		System.out.println(existingUser);
+//		System.out.println(existingUser);
 		return existingUser;
 	}
 
 
 	public void updateUsersdelete(int projectId) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("updating User on delete for project " + projectId);
+//		System.out.println("updating User on delete for project " + projectId);
 		Query query = 
 				currentSession.createQuery("update User set project_id = 0 where project_id=:id");
 		query.setParameter("id", projectId);

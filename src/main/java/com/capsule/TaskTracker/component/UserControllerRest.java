@@ -34,7 +34,7 @@ public class UserControllerRest {
 		@Produces({"application/json"})
 		@ResponseBody
 		public List<User> getUsers(){
-			System.out.println("User Controller");
+//			System.out.println("User Controller");
 			return userService.getUsers();
 		}
 
@@ -111,15 +111,10 @@ public class UserControllerRest {
 		public User getUser(@PathVariable int id) throws TaskTrackerException{
 			System.out.println("get 1 user" + id);
 			User userFetched = null;
-			try {
-			    userFetched = userService.getUser(id);
-			} catch (Exception e) {
-				throw new TaskTrackerException("User not updated, Check if valid data is provided!",e);
-			}
+			userFetched = userService.getUser(id);
 			return userFetched;
-			
-		}
-		
+			}
+
 		 // get 1 user
 		@GetMapping(value="/getuserbyproject/{id}")
 		@Produces({"application/json"})
@@ -127,11 +122,8 @@ public class UserControllerRest {
 		public User getUserByProjectId(@PathVariable int id) throws TaskTrackerException{
 			System.out.println("get 1 project id" + id);
 			User userFetched = null;
-			try {
-			    userFetched = userService.getUserByProjectId(id);
-			} catch (Exception e) {
-				throw new TaskTrackerException("User not updated, Check if valid data is provided!",e);
-			}
+			userFetched = userService.getUserByProjectId(id);
+			
 			return userFetched;
 			
 		}

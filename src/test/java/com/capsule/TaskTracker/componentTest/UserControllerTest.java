@@ -1,6 +1,7 @@
 package com.capsule.TaskTracker.componentTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,7 +68,39 @@ public class UserControllerTest {
 				.getContentAsString(), false);
 	}
 	
+	@Test
+	public void retrieveUserExcepTest() throws Exception{
+		Mockito.when(userService.getUser(Mockito.anyInt())).thenReturn(user);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
+				"/getuser/2").accept(
+				MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		System.out.println(result.getResponse());
+		String expected = "{\"userId\": 2,\"firstName\": \"Rashmi\","
+						+ "\"lastName\": \"Chudamani\",\"employeeId\": 1123,"
+						+ "\"projectId\": 1,\"taskId\": 1}";
+		JSONAssert.assertEquals(expected, result.getResponse()
+				.getContentAsString(), false);
+	}
 	
+	@Test
+	public void retreiveUserList() throws Exception {
+		Mockito.when(userService.getUsers()).thenReturn(Arrays.asList(user));
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/user")
+				.accept(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		System.out.println(result.getResponse());
+//		String expected ="{\"projectId\": 123,\"project\": \"TIM\",\"startDate\":null,"
+//				+ "\"endDate\": null,\"priority\": 12}";
+//		JSONAssert.assertEquals(expected, result.getResponse()
+//				.getContentAsString(), false);
+		
+		assertNotNull(result.getResponse().getContentAsString());
+	}
+
 	@Test
 	public void retrieveUserNegTest() throws Exception{
 		Mockito.when(userService.getUser(Mockito.anyInt())).thenReturn(emptyUser);
@@ -98,6 +131,23 @@ public class UserControllerTest {
 		assertEquals(HttpStatus.CREATED.value(), response.getStatus());
 		
 	}
+	
+	@Test
+	public void createUserNegTest() throws Exception {
+		Mockito.when(userService.createUser(Mockito.anyObject())).thenReturn(false);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+										.post("/addUser")
+										.accept(MediaType.APPLICATION_JSON)
+										.content(exampleJson)
+										.contentType(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		System.out.println(result.getResponse());
+//		assertEquals(true, response.getStatus());
+		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+		
+	}
 
 	@Test
 	public void updateUserTest() throws Exception {
@@ -117,6 +167,23 @@ public class UserControllerTest {
 	}
 	
 	@Test
+	public void updateUserNegTest() throws Exception {
+		Mockito.when(userService.updateUser(Mockito.anyObject())).thenReturn(false);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+										.put("/edituser")
+										.accept(MediaType.APPLICATION_JSON)
+										.content(exampleJson)
+										.contentType(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		System.out.println(result.getResponse());
+//		assertEquals(true, response.getStatus());
+		assertEquals(HttpStatus.EXPECTATION_FAILED.value(), response.getStatus());
+		
+	}
+	
+	@Test
 	public void deleteUserTest() throws Exception {
 		Mockito.when(userService.deleteUser(Mockito.anyInt())).thenReturn(true);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -130,6 +197,23 @@ public class UserControllerTest {
 		System.out.println(result.getResponse());
 //		assertEquals(true, response.getStatus());
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		
+	}
+	
+	@Test
+	public void deleteUserNegTest() throws Exception {
+		Mockito.when(userService.deleteUser(Mockito.anyInt())).thenReturn(false);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+										.put("/deleteUser")
+										.accept(MediaType.APPLICATION_JSON)
+										.content(exampleJson)
+										.contentType(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		System.out.println(result.getResponse());
+//		assertEquals(true, response.getStatus());
+		assertEquals(HttpStatus.EXPECTATION_FAILED.value(), response.getStatus());
 		
 	}
 	

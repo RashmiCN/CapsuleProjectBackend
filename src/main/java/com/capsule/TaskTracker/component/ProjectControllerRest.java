@@ -35,7 +35,7 @@ public class ProjectControllerRest {
 		@Produces({"application/json"})
 		@ResponseBody
 		public List<Project> getProjects(){
-			System.out.println("Project Controller");
+//			System.out.println("Project Controller");
 			return projectService.getProjects();
 		}
 
@@ -82,7 +82,7 @@ public class ProjectControllerRest {
 		@ResponseBody
 		public ResponseEntity<Project> deleteProject(@RequestBody Project project) throws TaskTrackerException{
 			boolean isdeleted = false;
-			System.out.println("passed id " + project);
+//			System.out.println("passed id " + project);
 			try {
 				isdeleted = projectService.deleteProject(project.getProjectId());
 			} catch (Exception e) {
@@ -106,11 +106,7 @@ public class ProjectControllerRest {
 		public Project getProject(@PathVariable int id) throws TaskTrackerException{
 			System.out.println("get 1 project" + id);
 			Project projectFetched = null;
-			try {
-			    projectFetched = projectService.getProject(id);
-			} catch (Exception e) {
-				throw new TaskTrackerException("project not updated, Check if valid data is provided!",e);
-			}
+			projectFetched = projectService.getProject(id);
 			return projectFetched;	
 		}
 		
@@ -121,11 +117,7 @@ public class ProjectControllerRest {
 		public Project getProjectByPName(@PathVariable String projectName) throws TaskTrackerException{
 			System.out.println("get 1 project" + projectName);
 			Project projectFetched = null;
-			try {
-			    projectFetched = projectService.getProjectByPName(projectName);
-			} catch (Exception e) {
-				throw new TaskTrackerException("project not updafetched, Check if valid data is provided!",e);
-			}
+			projectFetched = projectService.getProjectByPName(projectName);
 			return projectFetched;	
 		}
 

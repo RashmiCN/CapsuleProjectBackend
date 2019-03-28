@@ -1,6 +1,9 @@
 package com.capsule.TaskTracker.componentTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +23,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.capsule.TaskTracker.component.ProjectControllerRest;
 import com.capsule.TaskTracker.entity.Project;
+import com.capsule.TaskTracker.entity.Task;
 import com.capsule.TaskTracker.service.ProjectService;
 
 @RunWith(SpringRunner.class)
@@ -55,6 +59,23 @@ public class ProjectControllerTest {
 				+ "\"endDate\": null,\"priority\": 12}";
 		JSONAssert.assertEquals(expected, result.getResponse()
 				.getContentAsString(), false);
+	}
+	
+	@Test
+	public void retreiveProjectList() throws Exception {
+		Mockito.when(projectService.getProjects()).thenReturn(Arrays.asList(project));
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/projects")
+				.accept(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		System.out.println(result.getResponse());
+//		String expected ="{\"projectId\": 123,\"project\": \"TIM\",\"startDate\":null,"
+//				+ "\"endDate\": null,\"priority\": 12}";
+//		JSONAssert.assertEquals(expected, result.getResponse()
+//				.getContentAsString(), false);
+		
+		assertNotNull(result.getResponse().getContentAsString());
 	}
 	
 	
@@ -94,6 +115,22 @@ public class ProjectControllerTest {
 	}
 	
 	@Test
+	public void updateProjectNegTest() throws Exception {
+		Mockito.when(projectService.updateProject(Mockito.anyObject())).thenReturn(false);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+										.put("/editproject")
+										.accept(MediaType.APPLICATION_JSON)
+										.content(exampleJson)
+										.contentType(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		System.out.println(result.getResponse());
+		assertEquals(HttpStatus.EXPECTATION_FAILED.value(), response.getStatus());		
+	}
+	
+
+	@Test
 	public void deleteProjectTest() throws Exception {
 		Mockito.when(projectService.deleteProject(Mockito.anyInt())).thenReturn(true);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -109,6 +146,20 @@ public class ProjectControllerTest {
 	}
 	
 	@Test
+	public void deleteProjectNegTest() throws Exception {
+		Mockito.when(projectService.deleteProject(Mockito.anyInt())).thenReturn(false);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+										.put("/deleteproject")
+										.accept(MediaType.APPLICATION_JSON)
+										.content(exampleJson)
+										.contentType(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		System.out.println(result.getResponse());
+		assertEquals(HttpStatus.EXPECTATION_FAILED.value(), response.getStatus());		
+	}
+	@Test
 	public void retreiveProjectbyNameTest() throws Exception {
 		Mockito.when(projectService.getProjectByPName(Mockito.anyString())).thenReturn(project);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -121,5 +172,41 @@ public class ProjectControllerTest {
 				+ "\"startDate\":null,\"endDate\": null,\"priority\": 12}";
 		JSONAssert.assertEquals(expected, result.getResponse()
 				.getContentAsString(), false);
+	}
+	
+	@Test
+	public void retreivTaskist() throws Exception {
+		Task task = new Task(1,1,1, "Development",null,null,1,"COMPL");
+		Mockito.when(projectService.getCompletedTasks(Mockito.anyInt())).thenReturn(Arrays.asList(task));
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/getProjectTasks/123")
+				.accept(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		System.out.println(result.getResponse());
+//		String expected ="{\"projectId\": 123,\"project\": \"TIM\",\"startDate\":null,"
+//				+ "\"endDate\": null,\"priority\": 12}";
+//		JSONAssert.assertEquals(expected, result.getResponse()
+//				.getContentAsString(), false);
+		
+		assertNotNull(result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void retreivCompletedTaskList() throws Exception {
+		Task task = new Task(1,1,1, "Development",null,null,1,"COMPL");
+		Mockito.when(projectService.getCompletedTasks(Mockito.anyInt())).thenReturn(Arrays.asList(task));
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/getcompleted/123")
+				.accept(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		System.out.println(result.getResponse());
+//		String expected ="{\"projectId\": 123,\"project\": \"TIM\",\"startDate\":null,"
+//				+ "\"endDate\": null,\"priority\": 12}";
+//		JSONAssert.assertEquals(expected, result.getResponse()
+//				.getContentAsString(), false);
+		
+		assertNotNull(result.getResponse().getContentAsString());
 	}
 }

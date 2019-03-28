@@ -1,6 +1,9 @@
 package com.capsule.TaskTracker.componentTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,5 +71,22 @@ public class ParentControllerTest {
 
 		String expected =  pName;
 		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void retreiveParentList() throws Exception {
+		Mockito.when(parentService.getParentTasks()).thenReturn(Arrays.asList(pTask));
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/getParentTasks")
+				.accept(MediaType.APPLICATION_JSON);
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		System.out.println(result.getResponse());
+//		String expected ="{\"projectId\": 123,\"project\": \"TIM\",\"startDate\":null,"
+//				+ "\"endDate\": null,\"priority\": 12}";
+//		JSONAssert.assertEquals(expected, result.getResponse()
+//				.getContentAsString(), false);
+		
+		assertNotNull(result.getResponse().getContentAsString());
 	}
 }

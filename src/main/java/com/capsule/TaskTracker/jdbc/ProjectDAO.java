@@ -34,11 +34,11 @@ public class ProjectDAO {
 	
 	public Project createProject(Project project) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("inserting project...........");
-		System.out.println("project model" + project);
+//		System.out.println("inserting project...........");
+//		System.out.println("project model" + project);
 		
 		currentSession.save(project);
-		System.out.println("After insert"+ project);
+//		System.out.println("After insert"+ project);
 		
 		return project;
 	}
@@ -46,8 +46,8 @@ public class ProjectDAO {
 	public Project getProject(int projectId) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		System.out.println(projectId);
-		System.out.println("get project dta");
+//		System.out.println(projectId);
+//		System.out.println("get project dta");
 		
 		Query<Project> query = 
 				currentSession.createQuery("from Project where projectId=:id",Project.class);
@@ -56,7 +56,7 @@ public class ProjectDAO {
 		
 		Project existingProject = query.getSingleResult();
 		
-		System.out.println(existingProject);
+//		System.out.println(existingProject);
 		return existingProject;
 	}
 
@@ -67,7 +67,7 @@ public class ProjectDAO {
 				currentSession.createQuery("from Project",Project.class);
 		
 		List<Project> projectList = query.getResultList();
-		System.out.println(projectList);
+//		System.out.println(projectList);
 		
 		return projectList;
 	}
@@ -75,15 +75,15 @@ public class ProjectDAO {
 	@Transactional
 	public boolean deleteProject(int projectId) {
 		// TODO Auto-generated method stub
-		System.out.println("deleting...................................");
+//		System.out.println("deleting...................................");
 		
 		Session currentSession = entityManager.unwrap(Session.class);
 		Project existingProject = getProject(projectId);
-		System.out.println("Updating tasks...................................");
+//		System.out.println("Updating tasks...................................");
 		taskDAO.updateProjectsdelete(projectId);
-		System.out.println("Updating Users...................................");
+//		System.out.println("Updating Users...................................");
 		userDAO.updateUsersdelete(projectId);
-		System.out.println("delete project...................................");
+//		System.out.println("delete project...................................");
 		currentSession.delete(existingProject);
 		return true;
 	}
@@ -91,7 +91,7 @@ public class ProjectDAO {
 	@Transactional
 	public boolean updateProject(Project project) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		System.out.println("entring project");
+//		System.out.println("entring project");
 		System.out.println(project);
 		
 //		User existingUser = getUser(user.getUserId());
@@ -121,7 +121,7 @@ public class ProjectDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		System.out.println(projectName);
-		System.out.println("get project dta");
+//		System.out.println("get project dta");
 		
 		Query<Project> query = 
 				currentSession.createQuery("from Project where project=:name",Project.class);
@@ -130,7 +130,7 @@ public class ProjectDAO {
 		
 		Project existingProject = query.getSingleResult();
 		
-		System.out.println("get project by name" + existingProject);
+//		System.out.println("get project by name" + existingProject);
 		return existingProject;
 	}
 

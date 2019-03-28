@@ -24,12 +24,12 @@ public class ParentDao {
 		entityManager = theEntityManager;
 	}
 
-	public boolean insertParent(ParentTask parentTask) {
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		currentSession.saveOrUpdate(parentTask);		
-		return true;
-	}
+//	public boolean insertParent(ParentTask parentTask) {
+//		Session currentSession = entityManager.unwrap(Session.class);
+//
+//		currentSession.saveOrUpdate(parentTask);		
+//		return true;
+//	}
 
 	public List<ParentTask> getParentTasks() {
 		Session currentSession = entityManager.unwrap(Session.class);
